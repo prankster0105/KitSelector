@@ -13,12 +13,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public final class KitSelector extends JavaPlugin {
 
     public static KitSelector instance = null;
     private static HashMap<UUID,Integer> combatList;
+    private static Set<Kit> kits = new HashSet<>();
 
     public static HashMap<UUID,Integer> getCombatList() {
         return combatList;
@@ -38,8 +41,12 @@ public final class KitSelector extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PreProcessCommandListener(),this);
     }
 
-    private Kit registerNewKit(String kitName, boolean setUnbreakable) {
-        return new Kit(kitName, setUnbreakable);
+    private void registerNewKit(String kitName, boolean setUnbreakable) {
+        kits.add(new Kit(kitName,setUnbreakable));
+    }
+
+    public static Set<Kit> getKits() {
+        return kits;
     }
 
     public void registerRunnables() {

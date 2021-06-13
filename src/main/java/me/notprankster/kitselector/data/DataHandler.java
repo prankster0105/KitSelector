@@ -15,29 +15,29 @@ public class DataHandler {
     }
     
     private DataHandler() {
-        this.kitInfoFile = new File(KitSelector.getInstance().getDataFolder(), "kitInfo.yml");
-        if (!kitInfoFile.exists()) {
+        this.kitsFile = new File(KitSelector.getInstance().getDataFolder(), "kits.yml");
+        if (!kitsFile.exists()) {
             try {
-                this.kitInfoFile.getParentFile().mkdirs();
-                this.kitInfoFile.createNewFile();
+                this.kitsFile.getParentFile().mkdirs();
+                this.kitsFile.createNewFile();
             } catch(IOException e) {
                 e.printStackTrace();
             }
 
         }
-        this.kitInfo = YamlConfiguration.loadConfiguration(this.kitInfoFile);
+        this.kits = YamlConfiguration.loadConfiguration(this.kitsFile);
     }
 
-    private File kitInfoFile;
-    private FileConfiguration kitInfo;
+    private File kitsFile;
+    private FileConfiguration kits;
 
     public FileConfiguration getKitInfo() {
-        return kitInfo;
+        return kits;
     }
     
     public void saveKitInfo() {
         try {
-            this.kitInfo.save(kitInfoFile);
+            this.kits.save(kitsFile);
         } catch (IOException e) {
             e.printStackTrace();
         }

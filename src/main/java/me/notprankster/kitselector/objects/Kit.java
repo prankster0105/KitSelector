@@ -4,8 +4,11 @@ import com.sun.istack.internal.Nullable;
 import me.notprankster.kitselector.KitSelector;
 import me.notprankster.kitselector.data.DataHandler;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +18,7 @@ public class Kit {
 
     private String displayName;
     private String description;
+    private String kitType;
 
     private ItemStack mainHandItem;
     private ItemStack offHandItem;
@@ -46,7 +50,7 @@ public class Kit {
         //wrapping enchants and materials into a try catch statement to assure
         try {
             enchantList = fileConfiguration.getStringList("kits." + kitName + "enchants");
-
+            this.kitType = fileConfiguration.getString("kits." + kitName + ".kit-type");
 
 
            helmetMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".helmet.material"));
@@ -65,9 +69,7 @@ public class Kit {
         this.boots = new ItemStack(bootsMaterial);
 
 
-        //Put the items in a set to loop them in
-
-        
+        //Put the items in a set to loop around the mlater
         Set<ItemStack> armor = new HashSet<>();
         armor.add(helmet);
         armor.add(chestplate);
@@ -75,14 +77,40 @@ public class Kit {
         armor.add(boots);
 
 
-        //Make it so that the armour pieces are unbreakable, depending if setUnbreakable is true or false.
         for (ItemStack armorPiece : armor) {
-            armorPiece.getItemMeta().setUnbreakable(setUnbreakable);
+            ItemMeta armorPieceMeta = armorPiece.getItemMeta();
+            armorPieceMeta.setUnbreakable(setUnbreakable);
+
+            final String[] armorPieceName = armorPiece.getType().name().split("_");
+
+
+
+            try {
+                KitSelector.getInstance().getLogger().info(armorPieceName[1]);
+
+                List<String> enchantKeys = fileConfiguration.getStringList("kits." + kitName + "." + armorPieceName[1].toLowerCase() + ".enchants");
+
+                for (String enchantKey : enchantKeys) {
+                    String[] splitKeys = enchantKey.split(":");
+
+
+                    // For debugging, just print the 2 to make sure that they're not null or we are getting the right one
+                    KitSelector.getInstance().getLogger().info(splitKeys[0] + " " + splitKeys[1]);
+
+                    armorPieceMeta.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(splitKeys[0])), Integer.valueOf(splitKeys[1]), false);
+                }
+
+                armorPiece.setItemMeta(armorPieceMeta);
+            } catch (Exception e) {
+                e.printStackTrace();
+                KitSelector.getInstance().getLogger().info("SOmething went wrong man.");
+            }
+
+
         }
     }
 
     //getters and setters
-
     public String getDisplayName() {
         return this.displayName;
     }
@@ -107,4 +135,9 @@ public class Kit {
         return this.leggings;
     }
 
+    public ItemStack getBoots() { return this.boots; }
+
+    public boolean isUnbreakable() { return this.isUnbreakable; }
+
+    public String getKitType() { return this.kitType; }
 }
