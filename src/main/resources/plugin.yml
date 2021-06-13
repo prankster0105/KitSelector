@@ -1,0 +1,22 @@
+name: KitSelector
+version: ${project.version}
+main: me.notprankster.kitselector.KitSelector
+api-version: 1.16
+authors: [ notprankster ]
+description: KitSelector, an easier way to select kits!
+
+commands:
+  kit:
+    description: Opens a GUI for you to select a kit!
+  spawn:
+    description: Teleport yourself to spawn
+    permission: kitselector.spawn
+    permission-message: You do not have permission to teleport to spawn
+  setspawn:
+    description: Set the FFA spawn for the plugin!
+    permission: kitselector.spawn.set
+    permission-message: You do not have the permission to set the spawn for FFA. If you think this is a mistake, contact a server administrator.
+  permission:
+    description: Give players permission!
+    permission: kitselector.permission
+    permission-message: You do not have the permission to set permissions for other players. If you think this is a mistake, contact a server administrator.

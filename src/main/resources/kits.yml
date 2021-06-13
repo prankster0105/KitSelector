@@ -1,0 +1,28 @@
+kits:
+  Tank:
+    helmet:
+      material: DIAMOND_HELMET
+      enchants:
+        - PROTECTION_ENVIRONMENTAL:
+            level: 2
+    chestplate:
+      material: DIAMOND_CHESTPLATE
+      enchants:
+        - PROTECTION_ENVIRONMENTAL:
+            level: 3
+    leggings:
+      material: DIAMOND_LEGGINGS
+      enchants:
+        - PROTECTION_ENVIRONMENTAL:
+            level: 3
+    boots:
+      material: DIAMOND_BOOTS
+      enchants:
+        - PROTECTION_ENVIRONMENTAL:
+            level: 3
+    mainHandItem:
+      material: DIAMOND_SWORD
+      enchants:
+
+
+    kit-type: 'Sword'

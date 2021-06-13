@@ -1,0 +1,6 @@
+#The seconds the player will be invincible for after choosing a kit
+#Default: 3
+invincibilityTime: 3
+
+#The time a player should be combat-tagged for after pvping
+combatTagTime: 10
