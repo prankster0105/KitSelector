@@ -56,17 +56,20 @@ public class KitCommand implements CommandExecutor {
             ItemMeta tankMeta = Tank.getItemMeta();
             tankMeta.setDisplayName(ChatColor.AQUA + "Tank Kit");
             tankMeta.setUnbreakable(true);
-            tankMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "TANK");
+            tankMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "Tank");
             tankMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             tankMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
             Tank.setItemMeta(tankMeta);
+
+
+            // All the kits below tank kit are not functional yet, and are in the works.
 
             //Make Axeman Kit
             ItemStack Axe = new ItemStack(Material.IRON_AXE);
             ItemMeta axeMeta = Axe.getItemMeta();
             axeMeta.setDisplayName(ChatColor.RESET + "Axeman Kit");
             axeMeta.setUnbreakable(true);
-            axeMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "AXE");
+            axeMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "Ax");
             axeMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
             axeMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
