@@ -88,13 +88,14 @@ public class InventoryClickListener implements Listener {
         if (invName.equals("Select a kit")) {
             if (item != null) {
                 event.setCancelled(true);
-
+                p.closeInventory();
                 String namespacedKey = item.getItemMeta().getPersistentDataContainer().get(KitCommand.getKey(), PersistentDataType.STRING);
                 Set<Kit> kits = this.plugin.getKits();
 
+                clearPlayerEffects(p);
+
                 for (Kit kit : kits) {
                     if (kit.getDisplayName().equals(namespacedKey)) {
-
                         //Will remove this thing in the future, just wanna make sure that the kit actually exists.
                         KitSelector.getInstance().getLogger().info(kit.getDisplayName() + " was chosen!");
 
@@ -104,8 +105,15 @@ public class InventoryClickListener implements Listener {
                         playerInv.setBoots(kit.getBoots());
                         playerInv.setItemInOffHand(kit.getItemInOffHand());
                         playerInv.setItem(0, kit.getItemInMainHand());;
+
+                        for (PotionEffect potionEffect : kit.getPotionEffects()) {
+                            p.addPotionEffect(potionEffect);
+                        }
                     }
                 }
+
+                teleportPlayer(p);
+                makePlayerInvincible(p);
            }
         }
 
