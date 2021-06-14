@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +30,8 @@ public class Kit {
     private ItemStack chestplate;
     private ItemStack leggings;
     private ItemStack boots;
+
+    private Set<PotionEffect> potionEffects = new HashSet<>();
 
     private boolean isUnbreakable = false;
 
@@ -134,6 +137,27 @@ public class Kit {
 
 
         }
+
+        try {
+            KitSelector.getInstance().getLogger().info("\n\nEFFECTS==");
+            List<String> kitPotionEffects = fileConfiguration.getStringList("kits." + kitName + ".effects");
+
+            for (String potionEffect : kitPotionEffects) {
+                if (potionEffect.equalsIgnoreCase("NO-EFFECT")) break;
+                String[] splitKeys = potionEffect.split(":");
+                PotionEffect convertedPotionEffect = null;
+
+                KitSelector.getInstance().getLogger().info("PotionEffect: " + splitKeys[0] + " level: " + splitKeys[1]);
+
+                convertedPotionEffect = new PotionEffect(PotionEffectType.getByName(splitKeys[0].toUpperCase()), 99999, Integer.parseInt(splitKeys[1]) - 1);
+
+                KitSelector.getInstance().getLogger().info(convertedPotionEffect.toString());
+                potionEffects.add(convertedPotionEffect);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -166,4 +190,8 @@ public class Kit {
     public boolean isUnbreakable() { return this.isUnbreakable; }
 
     public String getKitType() { return this.kitType; }
+
+    public Set<PotionEffect> getPotionEffects() {
+        return potionEffects;
+    }
 }

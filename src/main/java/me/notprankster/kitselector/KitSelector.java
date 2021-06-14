@@ -54,7 +54,7 @@ public final class KitSelector extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         getLogger().info("KitSelector is shutting down!");
-        getLogger().severe("Thanks a lot for using KitSelector! Feedback is always appreciated!");
+        getLogger().info("Thanks a lot for using KitSelector! Feedback is always appreciated!");
     }
 
     public void registerCommands() {
