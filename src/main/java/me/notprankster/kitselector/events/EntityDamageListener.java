@@ -10,25 +10,27 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 public class EntityDamageListener implements Listener {
-    //static HashMap<String, Long> Tagged = new HashMap<String,Long>();
+    private KitSelector plugin;
 
+    public EntityDamageListener(KitSelector plugin) {
+        this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
 
-   /* public static HashMap<String, Long> getTagged() {
-        return Tagged;
-    }*/
 
     final int combatTagTime = KitSelector.getInstance().getConfig().getInt("combatTagTime");
-    static private HashMap<UUID,Integer> combatList = KitSelector.getCombatList();
+    HashMap<UUID,Integer> combatTagList =  this.plugin.getCombatList();
 
-    public static void onInterval() {
+    public void onInterval() {
         HashMap<UUID,Integer> tempCombatList = new HashMap<>();
-        for (UUID id : combatList.keySet())
+        for (UUID id : combatTagList.keySet())
         {
-            int timer = combatList.get(id) - 1;
+            int timer = combatTagList.get(id) - 1;
 
             if (timer > 0) {
                 tempCombatList.put(id,timer);
@@ -45,7 +47,7 @@ public class EntityDamageListener implements Listener {
             }
         }
 
-        combatList = tempCombatList;
+        combatTagList = tempCombatList;
     }
 
     @EventHandler
@@ -70,8 +72,8 @@ public class EntityDamageListener implements Listener {
             if (event.getDamager() instanceof Player) {
                 final Player damager = (Player) event.getDamager();
 
-                combatList.put(plr.getUniqueId(),combatTagTime);
-                combatList.put(plr.getUniqueId(),combatTagTime);
+                combatTagList.put(plr.getUniqueId(),combatTagTime);
+                combatTagList.put(plr.getUniqueId(),combatTagTime);
             }
 
                /* if (!Tagged.containsKey(plr.getName())) {

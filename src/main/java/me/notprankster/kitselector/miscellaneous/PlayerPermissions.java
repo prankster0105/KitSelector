@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class PlayerPermissions {
-    static HashMap<UUID, PermissionAttachment> perms = new HashMap<UUID, PermissionAttachment>();
+    HashMap<UUID, PermissionAttachment> perms = new HashMap<>();
 
-    public static void givePlayerPermission(Player player, String permissionNode) {
+    public void givePlayerPermission(Player player, String permissionNode) {
         if (perms.get(player.getUniqueId()) != null) {
             PermissionAttachment pperms = perms.get(player.getUniqueId());
             pperms.setPermission(permissionNode,true);
@@ -27,7 +27,7 @@ public class PlayerPermissions {
 
     }
 
-    public static void removePlayerPermission(Player player, String permissionNode) {
+    public void removePlayerPermission(Player player, String permissionNode) {
         if (perms.get(player.getUniqueId()) != null) {
             PermissionAttachment pperms = perms.get(player.getUniqueId());
             pperms.setPermission(permissionNode,false);

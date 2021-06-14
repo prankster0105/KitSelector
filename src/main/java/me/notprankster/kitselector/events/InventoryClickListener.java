@@ -28,8 +28,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class InventoryClickListener implements Listener {
-    public static Set<Player> invinciblePlayers = new HashSet<Player>();
+    private KitSelector plugin;
 
+    public InventoryClickListener(KitSelector plugin) {
+        this.plugin = plugin;
+        this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+    }
+
+    public static Set<Player> invinciblePlayers = new HashSet<Player>();
     public static Set<Player> getInvinciblePlayers() {
         return invinciblePlayers;
     }
@@ -60,7 +66,6 @@ public class InventoryClickListener implements Listener {
 
         invinciblePlayers.add(p);
 
-        BukkitScheduler scheduler = KitSelector.getInstance().getServer().getScheduler();
 
 
         new BukkitRunnable() {
@@ -85,7 +90,7 @@ public class InventoryClickListener implements Listener {
                 event.setCancelled(true);
 
                 String namespacedKey = item.getItemMeta().getPersistentDataContainer().get(KitCommand.getKey(), PersistentDataType.STRING);
-                Set<Kit> kits = KitSelector.getKits();
+                Set<Kit> kits = this.plugin.getKits();
 
                 for (Kit kit : kits) {
                     if (kit.getDisplayName().equals(namespacedKey)) {

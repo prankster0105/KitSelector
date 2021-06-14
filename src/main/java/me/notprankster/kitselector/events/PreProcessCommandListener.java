@@ -11,6 +11,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class PreProcessCommandListener implements Listener {
+    private KitSelector plugin;
+
+    public PreProcessCommandListener(KitSelector plugin){
+        this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+    }
+
 
     @EventHandler
     public void onCmd(PlayerCommandPreprocessEvent event)
@@ -21,7 +28,7 @@ public class PreProcessCommandListener implements Listener {
 
         String cmd = parts[0].toLowerCase();
 
-        if (commands.contains(cmd) && KitSelector.getCombatList().get(event.getPlayer().getUniqueId()) != null)
+        if (commands.contains(cmd) && this.plugin.getCombatList().get(event.getPlayer().getUniqueId()) != null)
         {
             event.setCancelled(true);
             event.getPlayer().sendMessage(ChatColor.RED + "You cannot execute this command, you are in combat!");

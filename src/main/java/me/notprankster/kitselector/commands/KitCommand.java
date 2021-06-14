@@ -31,6 +31,14 @@ public class KitCommand implements CommandExecutor {
         return null;
     }
 
+    private KitSelector plugin;
+
+    public KitCommand(KitSelector plugin) {
+        this.plugin = plugin;
+
+        plugin.getCommand("kit").setExecutor(this);
+    }
+
 
 
     @Override
@@ -39,7 +47,7 @@ public class KitCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
-            if (KitSelector.getCombatList().containsKey(p.getUniqueId())) {
+            if (this.plugin.getCombatList().containsKey(p.getUniqueId())) {
                 p.sendMessage(ChatColor.RED + "You are in combat! You cannot execute this command");
                 return false;
             }
@@ -49,7 +57,7 @@ public class KitCommand implements CommandExecutor {
 
 
             //Create the inventory
-            Inventory inv =KitSelector.getInstance().getServer().createInventory(null, 27, "Select a kit");
+            Inventory inv = this.plugin.getServer().createInventory(null, 27, "Select a kit");
 
             //Make tank kit
             ItemStack Tank = new ItemStack(Material.DIAMOND_SWORD);

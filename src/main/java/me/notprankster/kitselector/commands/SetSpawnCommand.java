@@ -1,5 +1,6 @@
 package me.notprankster.kitselector.commands;
 
+import me.notprankster.kitselector.KitSelector;
 import me.notprankster.kitselector.miscellaneous.EntityLocations;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -9,6 +10,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class SetSpawnCommand implements CommandExecutor {
+    private final KitSelector plugin;
+
+    public SetSpawnCommand(KitSelector plugin) {
+        this.plugin = plugin;
+
+        plugin.getCommand("setspawn").setExecutor(this);
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -25,7 +33,9 @@ public class SetSpawnCommand implements CommandExecutor {
             if (p.isOp() || p.hasPermission("kitselector.spawn.set")) {
                 EntityLocations.setFFASpawnLocation(p.getLocation());
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&7Set spawn to &b%coords% &7in &boverworld").replace("%coords%",coords));
+                        "&7Set spawn to &b%coords% &7in &b%worldname%")
+                        .replace("%coords%",coords)
+                        .replace("%worldname%",p.getWorld().getName()));
                 return true;
             }
         }
