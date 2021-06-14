@@ -16,9 +16,37 @@ kits:
       material: DIAMOND_BOOTS
       enchants:
         - "protection:2"
-    mainHandItem:
+    sword:
       material: DIAMOND_SWORD
       enchants:
-
-
-    kit-type: 'Sword'
+        - "NO-ENCHANT"
+    offHandItem:
+      material: AIR
+      enchants:
+        - "NO-ENCHANT"
+    kit-type: 'Swordsman'
+  Pawn:
+    helmet:
+      material: DIAMOND_HELMET
+      enchants:
+        - "NO-ENCHANT"
+    chestplate:
+      material: DIAMOND_CHESTPLATE
+      enchants:
+        - "NO-ENCHANT"
+    leggings:
+      material: DIAMOND_LEGGINGS
+      enchants:
+        - "NO-ENCHANT"
+    boots:
+      material: DIAMOND_BOOTS
+      enchants:
+        - "NO-ENCHANT"
+    sword:
+      material: DIAMOND_SWORD
+      enchants:
+        - "sharpness:4"
+    offHandItem:
+      material: AIR
+      enchants:
+        - "NO-ENCHANT"

@@ -89,12 +89,16 @@ public class InventoryClickListener implements Listener {
 
                 for (Kit kit : kits) {
                     if (kit.getDisplayName().equals(namespacedKey)) {
+
+                        //Will remove this thing in the future, just wanna make sure that the kit actually exists.
                         KitSelector.getInstance().getLogger().info(kit.getDisplayName() + " was chosen!");
 
                         playerInv.setHelmet(kit.getHelmet());
                         playerInv.setChestplate(kit.getChestplate());
                         playerInv.setLeggings(kit.getLeggings());
                         playerInv.setBoots(kit.getBoots());
+                        playerInv.setItemInOffHand(kit.getItemInOffHand());
+                        playerInv.setItem(0, kit.getItemInMainHand());;
                     }
                 }
            }

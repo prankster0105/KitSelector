@@ -17,7 +17,6 @@ import java.util.Set;
 public class Kit {
 
     private String displayName;
-    private String description;
     private String kitType;
 
     private ItemStack mainHandItem;
@@ -43,6 +42,8 @@ public class Kit {
         Material chestplateMaterial;
         Material leggingsMaterial;
         Material bootsMaterial;
+        Material mainHandItemMaterial;
+        Material offHandItemMaterial;
 
         List<String> enchantList;
 
@@ -57,6 +58,8 @@ public class Kit {
            chestplateMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".chestplate.material"));
            leggingsMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".leggings.material"));
            bootsMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".boots.material"));
+           mainHandItemMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".sword.material"));
+           offHandItemMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".offHandItem.material"));
         } catch(IllegalArgumentException e) {
             KitSelector.getInstance().getLogger().severe("Something wrong happened while obtaining armour from kits." + kitName + ", Error: ");
             e.printStackTrace();
@@ -67,50 +70,70 @@ public class Kit {
         this.chestplate = new ItemStack(chestplateMaterial);
         this.leggings = new ItemStack(leggingsMaterial);
         this.boots = new ItemStack(bootsMaterial);
+        this.mainHandItem = new ItemStack(mainHandItemMaterial);
+        this.offHandItem = new ItemStack(offHandItemMaterial);
 
 
         //Put the items in a set to loop around the mlater
-        Set<ItemStack> armor = new HashSet<>();
-        armor.add(helmet);
-        armor.add(chestplate);
-        armor.add(leggings);
-        armor.add(boots);
+        Set<ItemStack> items = new HashSet<>();
+        items.add(helmet);
+        items.add(chestplate);
+        items.add(leggings);
+        items.add(boots);
+        items.add(this.mainHandItem);
 
 
-        for (ItemStack armorPiece : armor) {
-            ItemMeta armorPieceMeta = armorPiece.getItemMeta();
-            armorPieceMeta.setUnbreakable(setUnbreakable);
+        for (ItemStack itemsPiece : items) {
+            ItemMeta itemsPieceMeta = itemsPiece.getItemMeta();
+            itemsPieceMeta.setUnbreakable(setUnbreakable);
 
-            final String[] armorPieceName = armorPiece.getType().name().split("_");
+            final String[] itemsPieceName = itemsPiece.getType().name().split("_");
 
 
 
             try {
-                KitSelector.getInstance().getLogger().info(armorPieceName[1]);
+                KitSelector.getInstance().getLogger().info(itemsPieceName[1]);
 
-                List<String> enchantKeys = fileConfiguration.getStringList("kits." + kitName + "." + armorPieceName[1].toLowerCase() + ".enchants");
+                List<String> enchantKeys = fileConfiguration.getStringList("kits." + kitName + "." + itemsPieceName[1].toLowerCase() + ".enchants");
 
                 for (String enchantKey : enchantKeys) {
+
+                    if (enchantKey.equalsIgnoreCase("no-enchant")) {
+                        KitSelector.getInstance().getLogger().info("No enchant for item " + itemsPieceName[1]);
+                        continue;
+                    }
+
                     String[] splitKeys = enchantKey.split(":");
 
 
                     // For debugging, just print the 2 to make sure that they're not null or we are getting the right one
+                    // This will be removed in the future when KitSelector comes out of its Alpha state
                     KitSelector.getInstance().getLogger().info(splitKeys[0] + " " + splitKeys[1]);
 
-                    armorPieceMeta.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(splitKeys[0])), Integer.valueOf(splitKeys[1]), false);
+                    Enchantment wantedEnchant = null;
+
+                    try {
+                        wantedEnchant = Enchantment.getByKey(NamespacedKey.minecraft(splitKeys[0]));
+                    } catch(Exception e) {
+                        KitSelector.getInstance().getLogger().severe("Something went wrong while trying to apply enchantment to kit " + kitName);
+                        e.printStackTrace();
+                    }
+
+                    int enchantLevel = Integer.valueOf(splitKeys[1]);
+                    if (wantedEnchant != null) itemsPieceMeta.addEnchant(wantedEnchant, enchantLevel, true);
                 }
 
-                armorPiece.setItemMeta(armorPieceMeta);
+                itemsPiece.setItemMeta(itemsPieceMeta);
             } catch (Exception e) {
                 e.printStackTrace();
-                KitSelector.getInstance().getLogger().info("SOmething went wrong man.");
+                KitSelector.getInstance().getLogger().info("Something went wrong");
             }
 
 
         }
     }
 
-    //getters and setters
+
     public String getDisplayName() {
         return this.displayName;
     }

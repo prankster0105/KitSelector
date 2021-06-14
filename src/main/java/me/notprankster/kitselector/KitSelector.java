@@ -74,6 +74,7 @@ public final class KitSelector extends JavaPlugin {
 
         //register new kits
         registerNewKit("Tank",true);
+        registerNewKit("Pawn",true);
     }
 
     @Override

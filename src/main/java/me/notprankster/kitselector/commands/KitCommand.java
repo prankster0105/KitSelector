@@ -69,7 +69,7 @@ public class KitCommand implements CommandExecutor {
             ItemMeta axeMeta = Axe.getItemMeta();
             axeMeta.setDisplayName(ChatColor.RESET + "Axeman Kit");
             axeMeta.setUnbreakable(true);
-            axeMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "Ax");
+            axeMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "Axe");
             axeMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
             axeMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
@@ -81,7 +81,7 @@ public class KitCommand implements CommandExecutor {
             pawnMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
             pawnMeta.setDisplayName(ChatColor.RESET + "Pawn Kit");
             pawnMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            pawnMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "PAWN");
+            pawnMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "Pawn");
             Pawn.setItemMeta(pawnMeta);
 
 
@@ -91,28 +91,30 @@ public class KitCommand implements CommandExecutor {
             ninjaMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
             ninjaMeta.setDisplayName(ChatColor.AQUA + "Ninja Kit");
             ninjaMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            ninjaMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING,"NINJA");
+            ninjaMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING,"Ninja");
             Ninja.setItemMeta(ninjaMeta);
+
+
 
             //Make Archer Kit
             ItemStack Archer = new ItemStack(Material.BOW);
             ItemMeta archerMeta = Archer.getItemMeta();
             archerMeta.setDisplayName(ChatColor.RESET + "Archer Kit");
             archerMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            archerMeta.getPersistentDataContainer().set(key,PersistentDataType.STRING,"ARCHER");
+            archerMeta.getPersistentDataContainer().set(key,PersistentDataType.STRING,"Archer");
             archerMeta.addEnchant(Enchantment.DAMAGE_ALL,1,true);
             Archer.setItemMeta(archerMeta);
 
             //Make Marksman Kit
             ItemStack Marksman = new ItemStack(Material.CROSSBOW);
             ItemMeta marksmanMeta = Marksman.getItemMeta();
-            marksmanMeta.setDisplayName(ChatColor.RED + "" + ChatColor.ITALIC + "Marksman kit");
+            marksmanMeta.setDisplayName(ChatColor.RED + "" + ChatColor.ITALIC + "Marksman Kit");
             List<String> loreList = new ArrayList<>();
             loreList.add("An enhanced version of the Archer kit.");
             marksmanMeta.setLore(loreList);
             marksmanMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             marksmanMeta.addEnchant(Enchantment.ARROW_INFINITE,1,true);
-            marksmanMeta.getPersistentDataContainer().set(key,PersistentDataType.STRING,"MARKSMAN");
+            marksmanMeta.getPersistentDataContainer().set(key,PersistentDataType.STRING,"Marksman");
             Marksman.setItemMeta(marksmanMeta);
             
             //"Make" Bomberman Kit
@@ -120,7 +122,7 @@ public class KitCommand implements CommandExecutor {
             ItemMeta bombermanMeta = Bomberman.getItemMeta();
             bombermanMeta.setDisplayName(ChatColor.RED + "Bomberman Kit");
             bombermanMeta.addEnchant(Enchantment.ARROW_INFINITE,1,true);
-            bombermanMeta.getPersistentDataContainer().set(key,PersistentDataType.STRING,"BOMBERMAN");
+            bombermanMeta.getPersistentDataContainer().set(key,PersistentDataType.STRING,"Bomberman");
             Bomberman.setItemMeta(bombermanMeta);
 
 
