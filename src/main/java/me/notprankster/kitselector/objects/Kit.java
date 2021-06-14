@@ -9,6 +9,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 import java.util.HashSet;
 import java.util.List;
@@ -83,6 +86,8 @@ public class Kit {
         items.add(this.mainHandItem);
 
 
+
+
         for (ItemStack itemsPiece : items) {
             ItemMeta itemsPieceMeta = itemsPiece.getItemMeta();
             itemsPieceMeta.setUnbreakable(setUnbreakable);
@@ -93,7 +98,6 @@ public class Kit {
 
             try {
                 KitSelector.getInstance().getLogger().info(itemsPieceName[1]);
-
                 List<String> enchantKeys = fileConfiguration.getStringList("kits." + kitName + "." + itemsPieceName[1].toLowerCase() + ".enchants");
 
                 for (String enchantKey : enchantKeys) {
@@ -104,7 +108,6 @@ public class Kit {
                     }
 
                     String[] splitKeys = enchantKey.split(":");
-
 
                     // For debugging, just print the 2 to make sure that they're not null or we are getting the right one
                     // This will be removed in the future when KitSelector comes out of its Alpha state

@@ -47,6 +47,7 @@ public final class KitSelector extends JavaPlugin {
         //register new kits
         registerNewKit("Tank",true);
         registerNewKit("Pawn",true);
+        registerNewKit("Ninja",true);
     }
 
     @Override
@@ -65,14 +66,14 @@ public final class KitSelector extends JavaPlugin {
 
     public void registerEvents() {
         new InventoryClickListener(this);
-        EntityDamageListener entityDamageListener = new EntityDamageListener(this);
+        new EntityDamageListener(this);
         new PreProcessCommandListener(this);
 
         //CombatTag runnable
         new BukkitRunnable() {
             @Override
             public void run() {
-                entityDamageListener.onInterval();
+                EntityDamageListener.onInterval();
             }
         }.runTaskTimer(this,0,20L);
     }

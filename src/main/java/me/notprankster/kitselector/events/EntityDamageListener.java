@@ -15,18 +15,18 @@ import java.util.Set;
 import java.util.UUID;
 
 public class EntityDamageListener implements Listener {
-    private KitSelector plugin;
-
+    private static KitSelector plugin;
+    static HashMap<UUID,Integer> combatTagList;
     public EntityDamageListener(KitSelector plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        combatTagList = plugin.getCombatList();
     }
 
 
     final int combatTagTime = KitSelector.getInstance().getConfig().getInt("combatTagTime");
-    HashMap<UUID,Integer> combatTagList =  this.plugin.getCombatList();
 
-    public void onInterval() {
+    public static void onInterval() {
         HashMap<UUID,Integer> tempCombatList = new HashMap<>();
         for (UUID id : combatTagList.keySet())
         {

@@ -50,3 +50,31 @@ kits:
       material: AIR
       enchants:
         - "NO-ENCHANT"
+    kit-type: 'Swordsman'
+  Ninja:
+    helmet:
+      material: DIAMOND_HELMET
+      enchants:
+        - "protection:2"
+    chestplate:
+      material: DIAMOND_CHESTPLATE
+      enchants:
+        - "protection:2"
+    leggings:
+      material: IRON_LEGGINGS
+      enchants:
+        - "protection:1"
+    boots:
+      material: DIAMOND_BOOTS
+      enchants:
+        - "protection:2"
+    sword:
+      material: IRON_SWORD
+      enchants:
+        - "sharpness:1"
+    offHandItem:
+      material: AIR
+      enchants:
+        - "NO-ENCHANT"
+    effects:
+      - "SPEED:2"
