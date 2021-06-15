@@ -85,3 +85,33 @@ kits:
           - "NO-ENCHANT"
     effects:
       - "SPEED:2"
+  Archer:
+    helmet:
+      material: CHAINMAIL_HELMET
+      enchants:
+        - "protection:1"
+    chestplate:
+      material: DIAMOND_CHESTPLATE
+      enchants:
+        - "protection:2"
+    leggings:
+      material: DIAMOND_LEGGINGS
+      enchants:
+        - "protection:1"
+    boots:
+      material: DIAMOND_BOOTS
+      enchants:
+        - "protection:1"
+    items:
+      mainHandItem:
+        material: STONE_SWORD
+        enchants:
+          - "sharpness:1"
+          - "knockback:1"
+      offHandItem:
+        material: BOW
+        enchants:
+          - "power:1"
+          - "punch:1"
+    effects:
+      - "NO-EFFECT"
