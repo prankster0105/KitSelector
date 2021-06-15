@@ -16,14 +16,15 @@ kits:
       material: DIAMOND_BOOTS
       enchants:
         - "protection:2"
-    sword:
-      material: DIAMOND_SWORD
-      enchants:
-        - "NO-ENCHANT"
-    offHandItem:
-      material: AIR
-      enchants:
-        - "NO-ENCHANT"
+    items:
+      mainHandItem:
+        material: DIAMOND_SWORD
+        enchants:
+          - "NO-ENCHANT"
+      offHandItem:
+        material: AIR
+        enchants:
+          - "NO-ENCHANT"
     effects:
       - "NO-EFFECT"
     kit-type: 'Swordsman'
@@ -44,14 +45,15 @@ kits:
       material: DIAMOND_BOOTS
       enchants:
         - "NO-ENCHANT"
-    sword:
-      material: DIAMOND_SWORD
-      enchants:
-        - "sharpness:4"
-    offHandItem:
-      material: AIR
-      enchants:
-        - "NO-ENCHANT"
+    items:
+      mainHandItem:
+        material: DIAMOND_SWORD
+        enchants:
+          - "sharpness:4"
+      offHandItem:
+        material: AIR
+        enchants:
+          - "NO-ENCHANT"
     effects:
       - "NO-EFFECT"
     kit-type: 'Swordsman'
@@ -72,13 +74,14 @@ kits:
       material: DIAMOND_BOOTS
       enchants:
         - "protection:2"
-    sword:
-      material: IRON_SWORD
-      enchants:
-        - "sharpness:1"
-    offHandItem:
-      material: AIR
-      enchants:
-        - "NO-ENCHANT"
+    items:
+      mainHandItem:
+        material: IRON_SWORD
+        enchants:
+          - "sharpness:1"
+      offHandItem:
+        material: AIR
+        enchants:
+          - "NO-ENCHANT"
     effects:
       - "SPEED:2"

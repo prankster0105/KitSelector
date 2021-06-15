@@ -64,8 +64,8 @@ public class Kit {
            chestplateMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".chestplate.material"));
            leggingsMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".leggings.material"));
            bootsMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".boots.material"));
-           mainHandItemMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".sword.material"));
-           offHandItemMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".offHandItem.material"));
+           mainHandItemMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".items.mainHandItem.material"));
+           offHandItemMaterial = Material.valueOf(fileConfiguration.getString("kits." + kitName + ".items.offHandItem.material"));
         } catch(IllegalArgumentException e) {
             KitSelector.getInstance().getLogger().severe("Something wrong happened while obtaining armour from kits." + kitName + ", Error: ");
             e.printStackTrace();
@@ -86,7 +86,11 @@ public class Kit {
         items.add(chestplate);
         items.add(leggings);
         items.add(boots);
-        items.add(this.mainHandItem);
+
+        Set<ItemStack> handItems = new HashSet<>();
+        handItems.add(mainHandItem);
+        handItems.add(offHandItem);
+
 
 
 
@@ -94,19 +98,19 @@ public class Kit {
         for (ItemStack itemsPiece : items) {
             ItemMeta itemsPieceMeta = itemsPiece.getItemMeta();
             itemsPieceMeta.setUnbreakable(setUnbreakable);
-
             final String[] itemsPieceName = itemsPiece.getType().name().split("_");
 
-
-
             try {
+                String itemName = itemsPieceName[1] != null ? itemsPieceName[1] : itemsPieceName[0];
+
+
                 KitSelector.getInstance().getLogger().info(itemsPieceName[1]);
-                List<String> enchantKeys = fileConfiguration.getStringList("kits." + kitName + "." + itemsPieceName[1].toLowerCase() + ".enchants");
+                List<String> enchantKeys = fileConfiguration.getStringList("kits." + kitName + "." + itemName.toLowerCase() + ".enchants");
 
                 for (String enchantKey : enchantKeys) {
 
                     if (enchantKey.equalsIgnoreCase("no-enchant")) {
-                        KitSelector.getInstance().getLogger().info("No enchant for item " + itemsPieceName[1]);
+                        KitSelector.getInstance().getLogger().info("No enchant for item " + itemName);
                         continue;
                     }
 
@@ -120,7 +124,7 @@ public class Kit {
 
                     try {
                         wantedEnchant = Enchantment.getByKey(NamespacedKey.minecraft(splitKeys[0]));
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         KitSelector.getInstance().getLogger().severe("Something went wrong while trying to apply enchantment to kit " + kitName);
                         e.printStackTrace();
                     }
@@ -136,6 +140,64 @@ public class Kit {
             }
 
 
+        }
+
+        // for mainhand and offhand items
+
+        ItemMeta mainHandItemMeta = !mainHandItem.getType().isAir() ? mainHandItem.getItemMeta() : null;
+        ItemMeta offHandItemMeta = !offHandItem.getType().isAir() ? offHandItem.getItemMeta() : null;
+
+        if (!(mainHandItemMeta == null)) {
+            List<String> handItemEnchants = fileConfiguration.getStringList("kits." + kitName + ".items.mainHandItem.enchants");
+
+            for (String enchantKey : handItemEnchants) {
+                if (enchantKey.equalsIgnoreCase("NO-ENCHANT")) {
+                    KitSelector.getInstance().getLogger().info("No enchant for item " + mainHandItemMeta.getDisplayName());
+                    continue;
+                }
+
+                String[] splitKeys = enchantKey.split(":");
+
+                Enchantment wantedEnchant = null;
+
+                try {
+                    wantedEnchant = Enchantment.getByKey(NamespacedKey.minecraft(splitKeys[0]));
+                } catch (IllegalArgumentException e) {
+                    KitSelector.getInstance().getLogger().info("Something went wrong while trying to apply enchantmnet");
+                    e.printStackTrace();
+                }
+
+                int enchantLevel = Integer.valueOf(splitKeys[1]);
+                if (!(wantedEnchant == null)) mainHandItemMeta.addEnchant(wantedEnchant, enchantLevel, true);
+            }
+
+            mainHandItem.setItemMeta(mainHandItemMeta);
+        }
+
+        if (!(offHandItemMeta == null)) {
+            List<String> handItemEnchants = fileConfiguration.getStringList("kits." + kitName + ".items.offHandItem.enchants");
+
+            for (String enchantKey : handItemEnchants) {
+                if (enchantKey.equalsIgnoreCase("NO-ENCHANT")) {
+                    KitSelector.getInstance().getLogger().info("No enchant for item " + offHandItemMeta.getDisplayName());
+                    continue;
+                }
+
+                String[] splitKeys = enchantKey.split(":");
+                Enchantment wantedEnchant = null;
+
+                try {
+                    wantedEnchant = Enchantment.getByKey(NamespacedKey.minecraft(splitKeys[0]));
+                } catch (IllegalArgumentException e) {
+                    KitSelector.getInstance().getLogger().info("Something went wrong while trying to apply enchant to item");
+                    e.printStackTrace();
+                }
+
+                int enchantLevel = Integer.parseInt(splitKeys[1]);
+                if (!(wantedEnchant == null)) offHandItemMeta.addEnchant(wantedEnchant, enchantLevel, true);
+            }
+
+            offHandItem.setItemMeta(offHandItemMeta);
         }
 
         try {
@@ -158,6 +220,7 @@ public class Kit {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
