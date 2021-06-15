@@ -27,6 +27,8 @@ kits:
           - "NO-ENCHANT"
     effects:
       - "NO-EFFECT"
+    inventory:
+      - "NO-ITEM"
     kit-type: 'Swordsman'
   Pawn:
     helmet:
@@ -56,6 +58,8 @@ kits:
           - "NO-ENCHANT"
     effects:
       - "NO-EFFECT"
+    inventory:
+      - "NO-ITEM"
     kit-type: 'Swordsman'
   Ninja:
     helmet:
@@ -85,6 +89,9 @@ kits:
           - "NO-ENCHANT"
     effects:
       - "SPEED:2"
+    inventory:
+      - "NO-ITEM"
+    kit-type: 'Swordsman'
   Archer:
     helmet:
       material: CHAINMAIL_HELMET
@@ -115,3 +122,6 @@ kits:
           - "punch:1"
     effects:
       - "NO-EFFECT"
+    inventory:
+      - "ARROW:24"
+    kit-type: 'Ranged'

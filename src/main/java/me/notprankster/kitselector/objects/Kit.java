@@ -32,6 +32,7 @@ public class Kit {
     private ItemStack boots;
 
     private Set<PotionEffect> potionEffects = new HashSet<>();
+    private Set<ItemStack> inventory = new HashSet<>();
 
     private boolean isUnbreakable = false;
 
@@ -221,6 +222,35 @@ public class Kit {
             e.printStackTrace();
         }
 
+        //inventory stuff
+
+        List<String> inventoryItems = fileConfiguration.getStringList("kits." + kitName + ".inventory");
+
+        for (String inventoryItem : inventoryItems) {
+            if (inventoryItem.equalsIgnoreCase("NO-ITEM")) {
+                KitSelector.getInstance().getLogger().info("No items for kit " + kitName);
+                continue;
+            }
+
+            String[] splitKeys = inventoryItem.split(":");
+
+            Material itemMaterial = null;
+
+            try {
+                itemMaterial = Material.valueOf(splitKeys[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+
+            int itemCount = Integer.parseInt(splitKeys[1]);
+            if (!(itemMaterial == null)) {
+                ItemStack item = new ItemStack(itemMaterial);
+                item.setAmount(itemCount);
+
+                inventory.add(item);
+            }
+        }
+
     }
 
 
@@ -246,6 +276,10 @@ public class Kit {
 
     public ItemStack getLeggings() {
         return this.leggings;
+    }
+
+    public Set<ItemStack> getInventory() {
+        return this.inventory;
     }
 
     public ItemStack getBoots() { return this.boots; }

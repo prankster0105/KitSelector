@@ -93,7 +93,8 @@ public class InventoryClickListener implements Listener {
                 Set<Kit> kits = this.plugin.getKits();
 
                 clearPlayerEffects(p);
-
+                playerInv.clear();
+                p.updateInventory();
                 for (Kit kit : kits) {
                     if (kit.getDisplayName().equals(namespacedKey)) {
                         //Will remove this thing in the future, just wanna make sure that the kit actually exists.
@@ -108,6 +109,10 @@ public class InventoryClickListener implements Listener {
 
                         for (PotionEffect potionEffect : kit.getPotionEffects()) {
                             p.addPotionEffect(potionEffect);
+                        }
+
+                        for (ItemStack inventoryItem : kit.getInventory()) {
+                            playerInv.addItem(inventoryItem);
                         }
                     }
                 }
