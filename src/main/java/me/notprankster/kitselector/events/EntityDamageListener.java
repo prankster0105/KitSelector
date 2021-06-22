@@ -35,10 +35,10 @@ public class EntityDamageListener implements Listener {
             if (timer > 0) {
                 tempCombatList.put(id,timer);
             } else {
-                tempCombatList.remove(id);
+
 
                 try {
-
+                    tempCombatList.remove(id);
                 } catch(Exception e) {
                     KitSelector.getInstance().getLogger().severe("Something went wrong while trying to obtain player using UUID from tempCombatList: " + e);
                 }
@@ -73,7 +73,7 @@ public class EntityDamageListener implements Listener {
                 final Player damager = (Player) event.getDamager();
 
                 combatTagList.put(plr.getUniqueId(),combatTagTime);
-                combatTagList.put(plr.getUniqueId(),combatTagTime);
+                combatTagList.put(damager.getUniqueId(),combatTagTime);
             }
 
                /* if (!Tagged.containsKey(plr.getName())) {
