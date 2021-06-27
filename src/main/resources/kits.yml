@@ -155,3 +155,35 @@ kits:
       - "NO-EFFECT"
     inventory:
       - "NO-ITEM"
+    kit-type: 'Axe'
+  Marksman:
+    helmet:
+      material: IRON_HELMET
+      enchants:
+        - "protection:2"
+    chestplate:
+      material: DIAMOND_CHESTPLATE
+      enchants:
+        - "protection:2"
+    leggings:
+      material: DIAMOND_LEGGINGS
+      enchants:
+      - "protection:1"
+    boots:
+      material: DIAMOND_BOOTS
+      enchants:
+        - "protection:1"
+    items:
+      mainHandItem:
+        material: IRON_SWORD
+        enchants:
+          - "NO-ENCHANT"
+      offHandItem:
+        material: CROSSBOW
+        enchants:
+          - "quickcharge:2"
+    effects:
+      - "NO-EFFECT"
+    inventory:
+      - "ARROW:24"
+    kit-type: 'Ranged'
