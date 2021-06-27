@@ -3,6 +3,7 @@ package me.notprankster.kitselector.events;
 import me.notprankster.kitselector.KitSelector;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,25 +54,32 @@ public class EntityDamageListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
-
+        Player damager = null;
+        Player plr = null;
         Set<Player> invinciblePlayers = InventoryClickListener.invinciblePlayers;
         if (event.getDamager() instanceof Player) {
-            Player damager = (Player) event.getDamager();
+            damager = (Player) event.getDamager();
 
+        } else {
+            if (event.getDamager() instanceof Arrow  && ((Arrow) event.getDamager()).getShooter() instanceof Player) {
+                damager = (Player) ((Arrow) event.getDamager()).getShooter();
+            }
+        }
+
+        if (damager != null) {
             if (invinciblePlayers.contains(damager)) {
                 event.setCancelled(true);
             }
         }
 
         if (event.getEntity() instanceof Player) {
-            final Player plr = (Player) event.getEntity();
+            plr = (Player) event.getEntity();
 
             if (invinciblePlayers.contains(plr)) {
                 event.setCancelled(true);
             } else {
 
-            if (event.getDamager() instanceof Player) {
-                final Player damager = (Player) event.getDamager();
+            if (damager != null) {
 
                 combatTagList.put(plr.getUniqueId(),combatTagTime);
                 combatTagList.put(damager.getUniqueId(),combatTagTime);
