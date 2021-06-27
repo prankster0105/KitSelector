@@ -2,6 +2,7 @@ package me.notprankster.kitselector.commands;
 
 import me.notprankster.kitselector.KitSelector;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,17 +19,8 @@ public class SpawnCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player p = null;
+        Player p = sender instanceof Player ? (Player)sender : null;
 
-        if (sender instanceof Player) {
-            p = (Player) sender;
-
-            p.getInventory().clear();
-            p.closeInventory();
-            p.updateInventory();
-            p.teleport(p.getWorld().getSpawnLocation());
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&',"&7Teleported to &bspawn&7."));
-        }
 
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("confirm")) {
@@ -37,7 +29,11 @@ public class SpawnCommand implements CommandExecutor {
                     p.getInventory().clear();
                     p.closeInventory();
                     p.updateInventory();
-                    p.teleport(p.getWorld().getSpawnLocation());
+                    Location spawnLocation = new Location(p.getWorld(),
+                            p.getWorld().getSpawnLocation().getBlockX() + 0.5,
+                            p.getWorld().getSpawnLocation().getBlockY() + 0.5,
+                            p.getWorld().getSpawnLocation().getBlockZ() + 0.5);
+                    p.teleport(spawnLocation);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&',"&7Teleported to &bspawn&7."));
 
                     return true;
@@ -57,7 +53,7 @@ public class SpawnCommand implements CommandExecutor {
                         '&',
                         "&6[&cKitSelector&6] &cAre you sure? Doing this will clear your inventory. Do /spawn confirm to teleport to spawn"));
 
-                return true;
+                return false;
             }
 
             if (sender instanceof ConsoleCommandSender) {

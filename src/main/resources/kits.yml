@@ -185,5 +185,5 @@ kits:
     effects:
       - "NO-EFFECT"
     inventory:
-      - "ARROW:24"
+      - "ARROW:32"
     kit-type: 'Ranged'

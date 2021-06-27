@@ -49,6 +49,8 @@ public final class KitSelector extends JavaPlugin {
         registerNewKit("Pawn",true);
         registerNewKit("Ninja",true);
         registerNewKit("Archer",true);
+        registerNewKit("Axe",true);
+        registerNewKit("Marksman",true);
     }
 
     @Override
