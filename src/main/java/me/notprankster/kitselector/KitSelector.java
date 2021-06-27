@@ -71,6 +71,7 @@ public final class KitSelector extends JavaPlugin {
         new InventoryClickListener(this);
         new EntityDamageListener(this);
         new PreProcessCommandListener(this);
+        new PlayerQuitListener(this);
 
         //CombatTag runnable
         new BukkitRunnable() {
