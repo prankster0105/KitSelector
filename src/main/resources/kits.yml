@@ -125,3 +125,33 @@ kits:
     inventory:
       - "ARROW:24"
     kit-type: 'Ranged'
+  Axe:
+    helmet:
+      material: DIAMOND_HELMET
+      enchants:
+        - "protection:1"
+    chestplate:
+      material: IRON_CHESTPLATE
+      enchants:
+        - "protection:2"
+    leggings:
+      material: DIAMOND_LEGGINGS
+      enchants:
+        - "protection:1"
+    boots:
+      material: DIAMOND_BOOTS
+      enchants:
+        - "protection:1"
+    items:
+      mainHandItem:
+        material: IRON_AXE
+        enchants:
+          - "sharpness:1"
+      offHandItem:
+        material: AIR
+        enchants:
+          - "NO-ENCHANT"
+    effects:
+      - "NO-EFFECT"
+    inventory:
+      - "NO-ITEM"

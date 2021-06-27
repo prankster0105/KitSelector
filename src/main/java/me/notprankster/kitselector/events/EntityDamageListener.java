@@ -48,6 +48,7 @@ public class EntityDamageListener implements Listener {
         }
 
         combatTagList = tempCombatList;
+        plugin.combatList = combatTagList;
     }
 
     @EventHandler
